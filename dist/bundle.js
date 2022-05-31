@@ -1,1 +1,0 @@
-(()=>{"use strict";let s=new class{constructor(s,t,i,o){this.title=s,this.description=t,this.dueDate=i,this.priority=o,this.done=!1}finishTask(){this.done=!0}}("Wash the dishes","Wash the dishes for gramma","Tommorow","Important");console.log(s),s.finishTask(),console.log(s)})();
