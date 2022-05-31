@@ -12,10 +12,7 @@ class Task  {
     this.done = true;
     undoneTasks = currentProject.tasksList.filter(el => {return el != this});
   };
-  /*putInProject(project) {
-    project.tasksList.push(this);
-    this.project = project;
-  };*/
+
   changeProject(currentProject, newProject) {
     currentProject.tasksList = currentProject.tasksList.filter(el => {return el != this}); //filtered array that returns all values that are different from this object
     newProject.tasksList.push(this);
