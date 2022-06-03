@@ -2,6 +2,10 @@
   color: #222831, #222831, #00ADB5, #EEEEEE;
 }
 
+body{
+font-family: 'Noto Sans', sans-serif;;
+}
+
 .header {
   display: flex;
   align-items: center;
@@ -77,7 +81,7 @@
 }
 
 .plus-sign {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
 }
 
@@ -117,3 +121,40 @@
   width: 15px;
   cursor: pointer;
 }
+
+.priority-container {
+  display: flex;
+  font-size: 22px;
+  gap: 5px;
+  margin-left: auto;
+  border: 1px solid #6b6a6a;
+  align-items: center;
+  padding: 5px;
+}
+
+.red-priority, .green-priority, .yellow-priority {
+  font-family: 'Alfa Slab One', cursive;
+  color: #EEEEEE; 
+  -webkit-text-stroke: 1px rgb(114, 113, 113);
+  padding: 0px 6px;
+  cursor: pointer;
+}
+
+.red-priority.active {
+  color: red;
+}
+
+.yellow-priority.active {
+  color: rgb(206, 206, 21);
+}
+
+.green-priority.active {
+  color: green;
+}
+
+.priority-text {
+  align-self: center;
+  font-size: 12px;
+  color: #6b6a6a;
+}
+

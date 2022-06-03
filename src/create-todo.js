@@ -5,12 +5,10 @@ class Task {
     this.title = title;
     this.dueDate = dueDate;
     this.priority = priority;
-    this.done = false;
     this.project = project;
   }
   finishTask() {
-    this.done = true;
-    undoneTasks = currentProject.tasksList.filter((el) => {
+    undoneTasks = undoneTasks.filter((el) => {
       return el != this;
     });
   }
