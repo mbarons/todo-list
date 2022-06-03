@@ -1,38 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="bundle.js" defer></script>
-  <title>My Todo</title>
-</head>
-<body>
-  <div class="content">
-    <div class="header">ToDo-List</div>
-    <div class="main">
-      <div class="sidebar">
-        <div class="static-bar">
-          <div class="static-line">
-            <img src="../src/inbox.svg" alt="inbox-icon" class="side-icons">
-            <div class="side-text">Inbox</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="bundle.js" defer></script>
+    <title>My Todo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Noto+Sans&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="content">
+      <div class="header">ToDo-List</div>
+      <div class="main">
+        <div class="sidebar">
+          <div class="static-bar">
+            <div class="static-line">
+              <img src="../src/inbox.svg" alt="inbox-icon" class="side-icons" />
+              <div class="side-text">Inbox</div>
+            </div>
+            <div class="static-line">
+              <img src="../src/clock.svg" alt="today-icon" class="side-icons" />
+              <div class="side-text">Today</div>
+            </div>
+            <div class="static-line">
+              <img
+                src="../src/calendar.svg"
+                alt="upcoming-icon"
+                class="side-icons"
+              />
+              <div class="side-text">Upcoming</div>
+            </div>
           </div>
-          <div class="static-line">
-            <img src="../src/clock.svg" alt="today-icon" class="side-icons">
-            <div class="side-text">Today</div>
-          </div>
-          <div class="static-line">
-            <img src="../src/calendar.svg" alt="upcoming-icon" class="side-icons">
-            <div class="side-text">Upcoming</div>
+          <div class="projects-bar">
+            <div class="projects-title">Projects</div>
           </div>
         </div>
-        <div class="projects-bar">
-          <div class="projects-title">Projects</div>
-        </div>
+        <div class="main-content"></div>
       </div>
-      <div class="main-content"></div>
+      <div class="footer"></div>
     </div>
-    <div class="footer"></div>
-  </div>
-</body>
+  </body>
 </html>
