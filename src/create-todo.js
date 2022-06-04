@@ -1,4 +1,5 @@
 let undoneTasks = [];
+let projects = [];
 
 class Task {
   constructor(title, dueDate, priority, project) {
@@ -31,4 +32,12 @@ let inboxStatic = Project("Inbox");
 let todayStatic = Project("Today");
 let upcomingStatic = Project("Upcoming");
 
-export { Task, Project, undoneTasks, inboxStatic, todayStatic, upcomingStatic };
+export {
+  Task,
+  Project,
+  undoneTasks,
+  projects,
+  inboxStatic,
+  todayStatic,
+  upcomingStatic,
+};

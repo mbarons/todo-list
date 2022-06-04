@@ -51,11 +51,17 @@ font-family: 'Noto Sans', sans-serif;;
   display: flex;
   margin-top: 40px;
   padding: 0px 20px;
+  flex-direction: column;
 }
 
 .projects-title {
   font-size: 24px;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.projects {
+  margin-left: 10px;
 }
 
 .footer {
@@ -63,7 +69,7 @@ font-family: 'Noto Sans', sans-serif;;
   padding: 30px;
 }
 
-.inbox-title {
+.project-title {
   font-size: 30px;
   font-weight: bold;
   margin: 20px;
@@ -126,7 +132,6 @@ font-family: 'Noto Sans', sans-serif;;
   display: flex;
   font-size: 22px;
   gap: 5px;
-  margin-left: auto;
   border: 1px solid #6b6a6a;
   align-items: center;
   padding: 5px;
@@ -158,3 +163,6 @@ font-family: 'Noto Sans', sans-serif;;
   color: #6b6a6a;
 }
 
+.calendar {
+  margin-left: auto;
+}

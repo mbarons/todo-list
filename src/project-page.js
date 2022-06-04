@@ -1,20 +1,5 @@
 import { createElement } from "./create-elements";
-import {
-  Task,
-  inboxStatic,
-  todayStatic,
-  upcomingStatic,
-  undoneTasks,
-} from "./create-todo";
-import { format, compareAsc } from "date-fns";
-
-let addTask = createElement(
-  "div",
-  "add-task",
-  "",
-  "<span class='plus-sign'>+</span> Add Task"
-);
-let tasksContainer = createElement("div", "tasks-container", "", "");
+import { Task, undoneTasks } from "./create-todo";
 
 function createTitle(location, project) {
   let projectTitle = createElement("div", "project-title", "", project.title);
@@ -160,4 +145,14 @@ function priorityFlow(task, redPriority, yellowPriority, greenPriority) {
   });
 }
 
-export { createTitle, createAddButton, tasksContainer, addTask };
+function createProjectPage(
+  location,
+  project,
+  dinamicContainer,
+  plusSignButton
+) {
+  createTitle(location, project);
+  createAddButton(location, dinamicContainer, plusSignButton, project);
+}
+
+export { createProjectPage };
