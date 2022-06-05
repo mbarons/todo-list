@@ -8,4 +8,19 @@ let addTaskPlusSign = createElement(
 );
 let tasksDinamicContainer = createElement("div", "tasks-container", "", "");
 
-export { addTaskPlusSign, tasksDinamicContainer };
+let projectsBar = document.querySelector(".projects");
+let projectsContainer = createElement("div", "projects-container", "", "");
+let addProjectPlusSign = createElement(
+  "div",
+  "add-project",
+  "",
+  "<span class='plus-sign'>+</span> Add Project"
+);
+
+export {
+  addTaskPlusSign,
+  tasksDinamicContainer,
+  projectsBar,
+  projectsContainer,
+  addProjectPlusSign,
+};
