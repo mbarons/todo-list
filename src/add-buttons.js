@@ -1,11 +1,5 @@
 import { createElement } from "./create-elements";
 
-let addTaskPlusSign = createElement(
-  "div",
-  "add-task",
-  "",
-  "<span class='plus-sign'>+</span> Add Task"
-);
 let tasksDinamicContainer = createElement("div", "tasks-container", "", "");
 
 let projectsBar = document.querySelector(".projects");
@@ -18,7 +12,6 @@ let addProjectPlusSign = createElement(
 );
 
 export {
-  addTaskPlusSign,
   tasksDinamicContainer,
   projectsBar,
   projectsContainer,

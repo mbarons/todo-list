@@ -7,4 +7,11 @@ function createElement(type, className, id, text) {
   return element;
 }
 
-export {createElement};
+function loadImage(icon, className) {
+  const myIcon = new Image();
+  myIcon.src = icon;
+  myIcon.classList.add(className);
+  return myIcon;
+}
+
+export { createElement, loadImage };

@@ -1,5 +1,9 @@
-import { createElement } from "./create-elements";
+import { tasksDinamicContainer } from "./add-buttons";
+import { createElement, loadImage } from "./create-elements";
 import { Project, projects } from "./create-todo";
+import { createProjectPage } from "./project-page";
+import projectImage from "./project.svg";
+import { mainContent } from "./index";
 
 function createAddProjectButton(location, dinamicContainer, plusSignButton) {
   location.appendChild(dinamicContainer);
@@ -50,15 +54,27 @@ function printProject(
   plusSignButton,
   dinamicContainer
 ) {
-  let newProject = Project(title);
-  projects.push(newProject);
-  mainContainer.removeChild(addFormButton);
-  mainContainer.removeChild(projectForm);
-  projectForm.value = "";
-  mainContainer.appendChild(plusSignButton);
-  let newProjectLine = createElement("div", "project-line", "", "");
-  dinamicContainer.appendChild(newProjectLine);
-  //add things now to the project line
+  if (projectForm.value != "") {
+    let newProject = Project(title);
+    projects.push(newProject);
+    mainContainer.removeChild(addFormButton);
+    mainContainer.removeChild(projectForm);
+    mainContainer.appendChild(plusSignButton);
+    let newProjectLine = createElement("div", "project-line", "", "");
+    dinamicContainer.appendChild(newProjectLine);
+    newProjectLine.appendChild(loadImage(projectImage, "project-image"));
+    let projectTitle = createElement(
+      "div",
+      "project-title-bar",
+      "",
+      projectForm.value
+    );
+    newProjectLine.appendChild(projectTitle);
+    projectForm.value = "";
+    newProjectLine.addEventListener("click", () => {
+      createProjectPage(mainContent, newProject, tasksDinamicContainer);
+    });
+  }
 }
 
 function createProjectBar(location, dinamicContainer, plusSignButton) {

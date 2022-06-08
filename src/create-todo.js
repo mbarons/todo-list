@@ -1,4 +1,3 @@
-let undoneTasks = [];
 let projects = [];
 
 class Task {
@@ -9,7 +8,10 @@ class Task {
     this.project = project;
   }
   finishTask() {
-    undoneTasks = undoneTasks.filter((el) => {
+    allTasksStatic.tasksList = allTasksStatic.tasksList.filter((el) => {
+      return el != this;
+    });
+    this.project.tasksList = this.project.tasksList.filter((el) => {
       return el != this;
     });
   }
@@ -30,14 +32,6 @@ const Project = (title) => {
 
 let inboxStatic = Project("Inbox");
 let todayStatic = Project("Today");
-let upcomingStatic = Project("Upcoming");
+let allTasksStatic = Project("All Tasks");
 
-export {
-  Task,
-  Project,
-  undoneTasks,
-  projects,
-  inboxStatic,
-  todayStatic,
-  upcomingStatic,
-};
+export { Task, Project, projects, inboxStatic, todayStatic, allTasksStatic };
