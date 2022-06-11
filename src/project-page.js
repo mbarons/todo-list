@@ -1,6 +1,6 @@
 import { addTaskPlusSign } from "./add-buttons";
 import { createElement } from "./create-elements";
-import { Task, all, allTasksStatic, Project } from "./create-todo";
+import { Task, all, allTasksStatic, Project, projects } from "./create-todo";
 import { isToday, parseISO } from "date-fns";
 
 function clearPage(location, dinamicContainer) {
@@ -124,6 +124,18 @@ function printTask(task, dinamicContainer) {
   priorityContainer.appendChild(yellowPriority);
   priorityContainer.appendChild(greenPriority);
   priorityFlow(task, redPriority, yellowPriority, greenPriority);
+  let projectDrop = document.createElement("select");
+  projects.forEach((element) => {
+    let option = document.createElement("option");
+    option.textContent = element.title;
+    option.value = element.title;
+    projectDrop.appendChild(option);
+  });
+  projectDrop.value = task.project.title;
+  newTaskLine.appendChild(projectDrop);
+  projectDrop.addEventListener("change", () => {
+    task.changeProject(projectDrop.value);
+  });
 }
 
 function priorityFlow(task, redPriority, yellowPriority, greenPriority) {
@@ -192,11 +204,11 @@ function createNoButtonPage(location, project, dinamicContainer) {
 }
 
 function createTodayPage(location, dinamicContainer) {
-  let today = Project("Today");
+  let today = new Project("Today");
   clearPage(location, dinamicContainer);
   createTitle(location, today);
   location.appendChild(dinamicContainer);
-  today.tasksList = allTasksStatic.tasksList.filter(function (task) {
+  today.tasksList = allTasksStatic.tasksList.filter((task) => {
     return isToday(parseISO(task.dueDate, 1));
   });
   today.tasksList.forEach((task) => {

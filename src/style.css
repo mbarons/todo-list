@@ -174,7 +174,10 @@ font-family: 'Noto Sans', sans-serif;;
 .project-line {
   display: flex;
   align-items: center;
+  padding: 6px;
   gap: 8px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .add-project {
@@ -188,5 +191,22 @@ font-family: 'Noto Sans', sans-serif;;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
-  gap: 6px;
+}
+
+.project-line.highlight {
+  background-color: #dad8d8;
+}
+
+.remove-button {
+  margin-left: auto;
+  margin-right: 5px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 0px 5px;
+  cursor: not-allowed;
+  display: none;
+}
+
+.remove-button.show {
+  display: inline;
 }

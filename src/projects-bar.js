@@ -1,6 +1,6 @@
 import { tasksDinamicContainer } from "./add-buttons";
 import { createElement, loadImage } from "./create-elements";
-import { Project, projects } from "./create-todo";
+import { Project, projects, inboxStatic, allTasksStatic } from "./create-todo";
 import { createProjectPage } from "./project-page";
 import projectImage from "./project.svg";
 import { mainContent } from "./index";
@@ -55,7 +55,7 @@ function printProject(
   dinamicContainer
 ) {
   if (projectForm.value != "") {
-    let newProject = Project(title);
+    let newProject = new Project(title);
     projects.push(newProject);
     mainContainer.removeChild(addFormButton);
     mainContainer.removeChild(projectForm);
@@ -74,6 +74,38 @@ function printProject(
     newProjectLine.addEventListener("click", () => {
       createProjectPage(mainContent, newProject, tasksDinamicContainer);
     });
+
+    let removeButton = createElement("div", "remove-button", "", "x");
+    newProjectLine.appendChild(removeButton);
+    newProjectLine.addEventListener("mouseenter", () => {
+      highlight(true, newProjectLine, removeButton);
+    });
+    newProjectLine.addEventListener("mouseleave", () => {
+      highlight(false, newProjectLine, removeButton);
+    });
+    removeButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dinamicContainer.removeChild(newProjectLine);
+      newProject.deleteProject();
+      console.log(projects);
+      createProjectPage(mainContent, inboxStatic, tasksDinamicContainer);
+      newProject.tasksList.forEach((task) => {
+        allTasksStatic.tasksList = allTasksStatic.tasksList.filter((el) => {
+          return el != task;
+        });
+      });
+      newProject.tasksList = [];
+    });
+  }
+}
+
+function highlight(add, line, removeButton) {
+  if (add) {
+    line.classList.add("highlight");
+    removeButton.classList.add("show");
+  } else {
+    line.classList.remove("highlight");
+    removeButton.classList.remove("show");
   }
 }
 
