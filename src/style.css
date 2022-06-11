@@ -210,3 +210,20 @@ font-family: 'Noto Sans', sans-serif;;
 .remove-button.show {
   display: inline;
 }
+
+.project-page-header {
+  display: flex;
+  align-items: center;
+  width: 70%;
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+}
+
+.sort-button {
+  padding: 7px 3px;
+}

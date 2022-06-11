@@ -44,4 +44,14 @@ projects.push(inboxStatic);
 let todayStatic = new Project("Today");
 let allTasksStatic = new Project("All Tasks");
 
-export { Task, Project, projects, inboxStatic, todayStatic, allTasksStatic };
+let priorities = ["red", "yellow", "green", ""];
+
+export {
+  Task,
+  Project,
+  projects,
+  inboxStatic,
+  todayStatic,
+  allTasksStatic,
+  priorities,
+};

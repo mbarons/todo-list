@@ -4,6 +4,7 @@ import { Project, projects, inboxStatic, allTasksStatic } from "./create-todo";
 import { createProjectPage } from "./project-page";
 import projectImage from "./project.svg";
 import { mainContent } from "./index";
+import { set } from "date-fns";
 
 function createAddProjectButton(location, dinamicContainer, plusSignButton) {
   location.appendChild(dinamicContainer);
@@ -23,7 +24,7 @@ function createProjectForm(mainContainer, plusSignButton, dinamicContainer) {
   mainContainer.removeChild(plusSignButton);
   mainContainer.appendChild(addFormButton);
   addFormButton.addEventListener("click", () => {
-    printProject(
+    setupProjectContainer(
       projectForm.value,
       mainContainer,
       addFormButton,
@@ -34,7 +35,7 @@ function createProjectForm(mainContainer, plusSignButton, dinamicContainer) {
   });
   document.addEventListener("keypress", function (event) {
     if (event.key === "Enter" && projectForm.value != "") {
-      printProject(
+      setupProjectContainer(
         projectForm.value,
         mainContainer,
         addFormButton,
@@ -46,7 +47,7 @@ function createProjectForm(mainContainer, plusSignButton, dinamicContainer) {
   });
 }
 
-function printProject(
+function setupProjectContainer(
   title,
   mainContainer,
   addFormButton,
@@ -60,43 +61,47 @@ function printProject(
     mainContainer.removeChild(addFormButton);
     mainContainer.removeChild(projectForm);
     mainContainer.appendChild(plusSignButton);
-    let newProjectLine = createElement("div", "project-line", "", "");
-    dinamicContainer.appendChild(newProjectLine);
-    newProjectLine.appendChild(loadImage(projectImage, "project-image"));
-    let projectTitle = createElement(
-      "div",
-      "project-title-bar",
-      "",
-      projectForm.value
-    );
-    newProjectLine.appendChild(projectTitle);
     projectForm.value = "";
-    newProjectLine.addEventListener("click", () => {
-      createProjectPage(mainContent, newProject, tasksDinamicContainer);
-    });
-
-    let removeButton = createElement("div", "remove-button", "", "x");
-    newProjectLine.appendChild(removeButton);
-    newProjectLine.addEventListener("mouseenter", () => {
-      highlight(true, newProjectLine, removeButton);
-    });
-    newProjectLine.addEventListener("mouseleave", () => {
-      highlight(false, newProjectLine, removeButton);
-    });
-    removeButton.addEventListener("click", (e) => {
-      e.stopPropagation();
-      dinamicContainer.removeChild(newProjectLine);
-      newProject.deleteProject();
-      console.log(projects);
-      createProjectPage(mainContent, inboxStatic, tasksDinamicContainer);
-      newProject.tasksList.forEach((task) => {
-        allTasksStatic.tasksList = allTasksStatic.tasksList.filter((el) => {
-          return el != task;
-        });
-      });
-      newProject.tasksList = [];
-    });
+    printProject(newProject, dinamicContainer);
   }
+}
+
+function printProject(project, dinamicContainer) {
+  let newProjectLine = createElement("div", "project-line", "", "");
+  dinamicContainer.appendChild(newProjectLine);
+  newProjectLine.appendChild(loadImage(projectImage, "project-image"));
+  let projectTitle = createElement(
+    "div",
+    "project-title-bar",
+    "",
+    project.title
+  );
+  newProjectLine.appendChild(projectTitle);
+
+  newProjectLine.addEventListener("click", () => {
+    createProjectPage(mainContent, project, tasksDinamicContainer);
+  });
+
+  let removeButton = createElement("div", "remove-button", "", "x");
+  newProjectLine.appendChild(removeButton);
+  newProjectLine.addEventListener("mouseenter", () => {
+    highlight(true, newProjectLine, removeButton);
+  });
+  newProjectLine.addEventListener("mouseleave", () => {
+    highlight(false, newProjectLine, removeButton);
+  });
+  removeButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dinamicContainer.removeChild(newProjectLine);
+    project.deleteProject();
+    createProjectPage(mainContent, inboxStatic, tasksDinamicContainer);
+    project.tasksList.forEach((task) => {
+      allTasksStatic.tasksList = allTasksStatic.tasksList.filter((el) => {
+        return el != task;
+      });
+    });
+    project.tasksList = [];
+  });
 }
 
 function highlight(add, line, removeButton) {
@@ -111,6 +116,10 @@ function highlight(add, line, removeButton) {
 
 function createProjectBar(location, dinamicContainer, plusSignButton) {
   createAddProjectButton(location, dinamicContainer, plusSignButton);
+  projects.forEach((project) => {
+    if (project.title == "Inbox") {
+    } else printProject(project, dinamicContainer);
+  });
 }
 
 export { createProjectBar };

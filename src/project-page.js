@@ -1,6 +1,13 @@
 import { addTaskPlusSign } from "./add-buttons";
 import { createElement } from "./create-elements";
-import { Task, all, allTasksStatic, Project, projects } from "./create-todo";
+import {
+  Task,
+  all,
+  allTasksStatic,
+  Project,
+  projects,
+  priorities,
+} from "./create-todo";
 import { isToday, parseISO } from "date-fns";
 
 function clearPage(location, dinamicContainer) {
@@ -12,9 +19,27 @@ function clearPage(location, dinamicContainer) {
   }
 }
 
-function createTitle(location, project) {
+function createTitle(location, project, dinamicContainer) {
+  let projectPageHeader = createElement("div", "project-page-header", "", "");
   let projectTitle = createElement("div", "project-title", "", project.title);
-  location.appendChild(projectTitle);
+  location.appendChild(projectPageHeader);
+  projectPageHeader.appendChild(projectTitle);
+  let sortContainer = createElement("div", "sort-container", "", "");
+  projectPageHeader.appendChild(sortContainer);
+  let sortText = createElement("div", "sort-text", "", "Sort by:");
+  sortContainer.appendChild(sortText);
+  let dateSort = createElement("button", "sort-button", "", "Due Date");
+  let prioritySort = createElement("button", "sort-button", "", "Priority");
+  sortContainer.appendChild(dateSort);
+  sortContainer.appendChild(prioritySort);
+
+  dateSort.addEventListener("click", () => {
+    sortPage(project, location, dinamicContainer, "Due Date");
+  });
+
+  prioritySort.addEventListener("click", () => {
+    sortPage(project, location, dinamicContainer, "Priority");
+  });
 }
 
 function createAddButton(location, dinamicContainer, project) {
@@ -187,7 +212,7 @@ function colorPriority(
 
 function createProjectPage(location, project, dinamicContainer) {
   clearPage(location, dinamicContainer);
-  createTitle(location, project);
+  createTitle(location, project, dinamicContainer);
   createAddButton(location, dinamicContainer, project);
   project.tasksList.forEach((task) => {
     printTask(task, dinamicContainer);
@@ -196,7 +221,7 @@ function createProjectPage(location, project, dinamicContainer) {
 
 function createNoButtonPage(location, project, dinamicContainer) {
   clearPage(location, dinamicContainer);
-  createTitle(location, project);
+  createTitle(location, project, dinamicContainer);
   location.appendChild(dinamicContainer);
   project.tasksList.forEach((task) => {
     printTask(task, dinamicContainer);
@@ -206,7 +231,7 @@ function createNoButtonPage(location, project, dinamicContainer) {
 function createTodayPage(location, dinamicContainer) {
   let today = new Project("Today");
   clearPage(location, dinamicContainer);
-  createTitle(location, today);
+  createTitle(location, today, dinamicContainer);
   location.appendChild(dinamicContainer);
   today.tasksList = allTasksStatic.tasksList.filter((task) => {
     return isToday(parseISO(task.dueDate, 1));
@@ -214,6 +239,31 @@ function createTodayPage(location, dinamicContainer) {
   today.tasksList.forEach((task) => {
     printTask(task, dinamicContainer);
   });
+}
+
+function sortPage(project, location, dinamicContainer, sortType) {
+  clearPage(location, dinamicContainer);
+  createTitle(location, project, dinamicContainer);
+  location.appendChild(dinamicContainer);
+  if (sortType == "Due Date") {
+    project.tasksList.sort(function (a, b) {
+      if (a.dueDate == "") return 1;
+      else if (b.dueDate == "") return -1;
+      else return Date.parse(a.dueDate) - Date.parse(b.dueDate);
+    });
+    project.tasksList.forEach((task) => {
+      printTask(task, dinamicContainer);
+    });
+    createAddButton(location, dinamicContainer, project);
+  } else if (sortType == "Priority") {
+    project.tasksList.sort(function (a, b) {
+      return priorities.indexOf(a.priority) - priorities.indexOf(b.priority);
+    });
+    project.tasksList.forEach((task) => {
+      printTask(task, dinamicContainer);
+    });
+    createAddButton(location, dinamicContainer, project);
+  }
 }
 
 export { createProjectPage, createNoButtonPage, createTodayPage, printTask };
