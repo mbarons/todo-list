@@ -4,7 +4,7 @@ import { Project, projects, inboxStatic, allTasksStatic } from "./create-todo";
 import { createProjectPage } from "./project-page";
 import projectImage from "./project.svg";
 import { mainContent } from "./index";
-import { set } from "date-fns";
+import { refReplacer, storageAvailable } from "./localStorage";
 
 function createAddProjectButton(location, dinamicContainer, plusSignButton) {
   location.appendChild(dinamicContainer);
@@ -58,6 +58,7 @@ function setupProjectContainer(
   if (projectForm.value != "") {
     let newProject = new Project(title);
     projects.push(newProject);
+    localStorage.setItem("projects", JSON.stringify(projects, refReplacer()));
     mainContainer.removeChild(addFormButton);
     mainContainer.removeChild(projectForm);
     mainContainer.appendChild(plusSignButton);
@@ -116,6 +117,7 @@ function highlight(add, line, removeButton) {
 
 function createProjectBar(location, dinamicContainer, plusSignButton) {
   createAddProjectButton(location, dinamicContainer, plusSignButton);
+  console.log(projects);
   projects.forEach((project) => {
     if (project.title == "Inbox") {
     } else printProject(project, dinamicContainer);

@@ -1,4 +1,30 @@
+import { parseRefJSON, storageAvailable } from "./localStorage";
+
+class Project {
+  constructor(title) {
+    this.title = title;
+    this.tasksList = [];
+  }
+  deleteProject() {
+    projects = projects.filter((el) => {
+      return el != this;
+    });
+  }
+}
+
 let projects = [];
+if (
+  storageAvailable("localStorage") &&
+  localStorage.getItem("projects") != null
+) {
+  let projects2 = JSON.parse(localStorage.getItem("projects"));
+  projects2.forEach((proj) => {
+    parseRefJSON(proj);
+    //let newProject = new Project(proj.title);
+    //newProject.tasksList = proj.tasksList;
+    // projects.push(newProject);
+  });
+}
 
 class Task {
   constructor(title, dueDate, priority, project) {
@@ -25,17 +51,6 @@ class Task {
     });
     newProject.tasksList.push(this);
     this.project = newProject;
-  }
-}
-class Project {
-  constructor(title) {
-    this.title = title;
-    this.tasksList = [];
-  }
-  deleteProject() {
-    projects = projects.filter((el) => {
-      return el != this;
-    });
   }
 }
 
